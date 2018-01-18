@@ -4,18 +4,17 @@ const autoIncrement = require('mongoose-auto-increment');
 
 
 let CategoriesSchema = new mongoose.Schema({
-    title:{
+    title: {
         type:String, // тип: String
         required:[true,"titleRequired"],
         // Данное поле обязательно. Если его нет вывести ошибку с текстом titleRequired
         unique:true // Оно должно быть уникальным
     },
-    link:{
+    link: {
         type:String,
         required:[true,"EngNameRequired"]
     },
 });
-CategoriesSchema.plugin(autoIncrement.plugin, 'Categories');
 
 // Компилируем и Экспортируем модель
 module.exports = mongoose.model('Categories', CategoriesSchema);
