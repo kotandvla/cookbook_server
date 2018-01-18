@@ -28,25 +28,15 @@ try{
   //Bind connection to error event (to get notification of connection errors)
   db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-  autoIncrement.initialize(db);
     
-
+  app.use(require('./routes'))
+  
   var listener = app.listen(process.env.PORT || 8081, function () {
     logger.info('Your app is listening on port ' + listener.address().port);
   });
   
-  app.use(require('./controllers'))
 }
 catch (e) {
   logger.log(e.message)
   throw e
-}
-
-function getNextSequence(name, db) {
-  var ret = db.counters.findAndModify({
-      query: { _id: name },
-      update: { $inc: { seq: 1 } },
-      new: true
-  });
-  return ret.seq;
 }
